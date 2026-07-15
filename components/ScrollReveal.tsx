@@ -4,13 +4,17 @@ import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
 /**
- * Single client island that drives every `[data-reveal]` and `[data-parallax]`
- * element on the page — so section markup stays in server components and only
- * this tiny effect ships JS.
+ * Drives every `[data-reveal]` / `[data-parallax]` element so section markup can
+ * stay in server components and only this island ships JS.
  *
- * Re-runs on every route change (`pathname` dep): the root layout does not remount
- * during SPA navigation, so without this, `data-reveal` content on a page reached
- * via <Link> would never be revealed and would stay invisible.
+ * Reveal is DETERMINISTIC and rect-based (not IntersectionObserver): an element
+ * is revealed the moment its top enters the viewport band, on mount, on scroll,
+ * and on resize — plus a hard failsafe that force-reveals anything still hidden
+ * shortly after load. This guarantees content is NEVER left invisible (the earlier
+ * observer-based version could strand elements at opacity:0 under React's dev
+ * double-mount / observer timing).
+ *
+ * Re-runs on route change (`pathname`) since the root layout never remounts.
  */
 export default function ScrollReveal() {
   const pathname = usePathname();
@@ -18,62 +22,69 @@ export default function ScrollReveal() {
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // --- reveals
-    const revealEls = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]:not(.is-visible)'));
-    let io: IntersectionObserver | null = null;
+    const markVisible = (el: Element) => {
+      el.classList.add('is-visible');
+      const underline = el.querySelector<HTMLElement>('[data-underline]');
+      if (underline) window.setTimeout(() => (underline.style.width = '100%'), 350);
+    };
 
+    // reduced motion: show everything immediately, no animation, done.
     if (reduced) {
-      revealEls.forEach((el) => el.classList.add('is-visible'));
-    } else if ('IntersectionObserver' in window) {
-      io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((en) => {
-            if (en.isIntersecting) {
-              en.target.classList.add('is-visible');
-              const underline = en.target.querySelector<HTMLElement>('[data-underline]');
-              if (underline) window.setTimeout(() => (underline.style.width = '100%'), 350);
-              io?.unobserve(en.target);
-            }
-          });
-        },
-        { threshold: 0.12 },
-      );
-      revealEls.forEach((el) => io!.observe(el));
-      // safety: reveal anything already in view right after mount / navigation
-      requestAnimationFrame(() => {
-        revealEls.forEach((el) => {
-          const r = el.getBoundingClientRect();
-          if (r.top < window.innerHeight && r.bottom > 0) el.classList.add('is-visible');
-        });
-      });
-    } else {
-      revealEls.forEach((el) => el.classList.add('is-visible'));
+      document.querySelectorAll('[data-reveal]').forEach(markVisible);
+      return;
     }
 
-    // --- parallax (fine-pointer, motion-allowed only)
-    let raf = 0;
+    const revealInView = () => {
+      const vh = window.innerHeight;
+      document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach((el) => {
+        const r = el.getBoundingClientRect();
+        // reveal once the element's top crosses ~95% down the viewport
+        if (r.top < vh * 0.95 && r.bottom > -80) markVisible(el);
+      });
+    };
+
+    // --- parallax
     const parallaxEls = Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'));
-    let onScroll: (() => void) | null = null;
-    if (!reduced && parallaxEls.length) {
-      const apply = () => {
-        const y = window.scrollY;
-        parallaxEls.forEach((el) => {
-          const factor = parseFloat(el.dataset.parallax || '0');
-          el.style.transform = `translate3d(0, ${(-y * factor).toFixed(1)}px, 0)`;
-        });
+    const applyParallax = () => {
+      const y = window.scrollY;
+      parallaxEls.forEach((el) => {
+        const factor = parseFloat(el.dataset.parallax || '0');
+        el.style.transform = `translate3d(0, ${(-y * factor).toFixed(1)}px, 0)`;
+      });
+    };
+
+    let raf = 0;
+    const onScroll = () => {
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        revealInView();
+        applyParallax();
         raf = 0;
-      };
-      onScroll = () => {
-        if (!raf) raf = requestAnimationFrame(apply);
-      };
-      window.addEventListener('scroll', onScroll, { passive: true });
-      apply();
-    }
+      });
+    };
+
+    // initial passes: now, next frame, and after fonts/layout settle
+    revealInView();
+    applyParallax();
+    const rafId = requestAnimationFrame(revealInView);
+    const t1 = window.setTimeout(revealInView, 300);
+
+    // hard failsafe: nothing stays hidden. Any element still not visible after
+    // load gets shown (below-the-fold ones simply appear without the scroll effect).
+    const failsafe = window.setTimeout(() => {
+      document.querySelectorAll('[data-reveal]:not(.is-visible)').forEach(markVisible);
+    }, 2500);
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
 
     return () => {
-      io?.disconnect();
-      if (onScroll) window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
       if (raf) cancelAnimationFrame(raf);
+      cancelAnimationFrame(rafId);
+      window.clearTimeout(t1);
+      window.clearTimeout(failsafe);
     };
   }, [pathname]);
 
