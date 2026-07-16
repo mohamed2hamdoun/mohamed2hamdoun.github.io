@@ -40,13 +40,16 @@ export const site = {
     'I design intelligent systems and digital experiences that turn complex ideas into useful, memorable products.',
   concept: 'INTELLIGENCE, DESIGNED.',
   email: 'mohamed2hamdoun@gmail.com',
+  phone: '+971 50 703 3673',
+  phoneHref: 'tel:+971507033673',
   availability: 'AVAILABLE FOR SELECTED PROJECTS',
   closingHeadline:
     'LET’S BUILD SOMETHING THAT THINKS CLEARLY AND FEELS UNFORGETTABLE.',
-  // TODO(CLAUDE-CODE): confirm production origin before launch (used for metadata + sitemap).
-  url: 'https://mohamedhamdoun.com',
+  url: 'https://mohamed2hamdoun.github.io',
+  /** Downloadable CV (generated PDF in /public). */
+  cvUrl: '/Mohamed-Hamdoun-CV.pdf',
   description:
-    'Mohamed Hamdoun — AI Systems Developer, applied AI researcher, and creative technologist based in the UAE. Agentic systems, machine-learning research, and cinematic web experiences.',
+    'Mohamed Hamdoun — AI Systems Developer, applied AI researcher, and creative technologist based in the UAE. Agentic systems, machine-learning research, LLM-powered products, and cinematic web experiences.',
 } as const;
 
 export const nav: NavItem[] = [
@@ -63,8 +66,8 @@ export const metrics: Metric[] = [
   { value: '4+', label: 'YEARS OF\nCREATIVE PRODUCTION' },
 ];
 
-// TODO(CLAUDE-CODE): replace placeholder profile URLs with verified links, then flip `verified`.
-// Unverified links render as "[ AWAITING VERIFIED URL ]" and are not clickable.
+// Verified from CV + GitHub. Unverified links (href:null) render as a placeholder
+// and are not clickable.
 export const socials: SocialLink[] = [
   {
     label: 'EMAIL',
@@ -72,9 +75,10 @@ export const socials: SocialLink[] = [
     href: 'mailto:mohamed2hamdoun@gmail.com',
     verified: true,
   },
-  { label: 'LINKEDIN', value: '[ AWAITING VERIFIED URL ]', href: null, verified: false, external: true },
-  { label: 'GITHUB', value: '[ AWAITING VERIFIED URL ]', href: null, verified: false, external: true },
-  { label: 'YOUTUBE', value: '[ AWAITING VERIFIED URL ]', href: null, verified: false, external: true },
+  { label: 'PHONE', value: '+971 50 703 3673', href: 'tel:+971507033673', verified: true },
+  { label: 'LINKEDIN', value: 'linkedin.com/in/mohamed-hamdoun', href: 'https://linkedin.com/in/mohamed-hamdoun', verified: true, external: true },
+  { label: 'GITHUB', value: 'github.com/mohamed2hamdoun', href: 'https://github.com/mohamed2hamdoun', verified: true, external: true },
+  { label: 'YOUTUBE', value: 'youtube.com/@mohamed_tech1', href: 'https://youtube.com/@mohamed_tech1', verified: true, external: true },
 ];
 
 export const projectTypes = [

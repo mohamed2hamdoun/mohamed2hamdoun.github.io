@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @page { size: A4; margin: 14mm 14mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #141210; font-size: 10.2px; line-height: 1.5; background: #ffffff;
+    -webkit-print-color-adjust: exact; print-color-adjust: exact;
+  }
+  .accent { color: #E5242A; }
+  .muted { color: #6a655c; }
+  a { color: #141210; text-decoration: none; }
+
+  header { border-bottom: 2px solid #141210; padding-bottom: 10px; margin-bottom: 12px; }
+  .name { font-size: 30px; font-weight: 800; letter-spacing: 0.5px; line-height: 1; margin: 0; text-transform: uppercase; }
+  .roles { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin: 7px 0 0; font-weight: 600; }
+  .roles .sep { color: #E5242A; margin: 0 6px; }
+  .contact { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: 9.4px; letter-spacing: 0.3px; }
+  .contact b { color: #E5242A; font-weight: 700; margin-right: 4px; }
+
+  section { margin-top: 13px; }
+  h2 {
+    font-size: 11px; letter-spacing: 2.4px; text-transform: uppercase; font-weight: 800;
+    margin: 0 0 8px; padding-bottom: 4px; border-bottom: 1px solid #141210;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  h2 .tag { font-size: 8.5px; letter-spacing: 1.5px; color: #6a655c; font-weight: 600; }
+  p { margin: 0 0 4px; }
+
+  .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .role-title { font-weight: 700; font-size: 11px; }
+  .org { color: #E5242A; font-weight: 700; }
+  .when { color: #6a655c; font-size: 9px; letter-spacing: 0.5px; white-space: nowrap; }
+  ul { margin: 3px 0 0; padding-left: 14px; }
+  li { margin: 1.5px 0; }
+  .tech { margin-top: 4px; font-size: 8.8px; letter-spacing: 0.4px; color: #6a655c; }
+  .tech b { color: #141210; }
+
+  .proj { margin-bottom: 7px; break-inside: avoid; }
+  .proj .role-title { font-size: 10.4px; }
+  .proj .desc { margin: 1px 0 0; }
+
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 22px; }
+  .cert { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid #e7e2d8; padding: 2px 0; }
+  .cert .yr { color: #6a655c; }
+
+  .skills div { margin-bottom: 3px; }
+  .skills .g { display: inline-block; width: 118px; font-weight: 700; color: #E5242A; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; vertical-align: top; }
+  .skills .v { display: inline-block; width: calc(100% - 122px); }
+</style>
+</head>
+<body>
+  <header>
+    <h1 class="name">Mohamed Hamdoun</h1>
+    <p class="roles">AI Systems Developer <span class="sep">/</span> Applied AI Researcher <span class="sep">/</span> Creative Technologist</p>
+    <div class="contact">
+      <span><b>Email</b>mohamed2hamdoun@gmail.com</span>
+      <span><b>Phone</b>+971 50 703 3673</span>
+      <span><b>Location</b>United Arab Emirates</span>
+      <span><b>LinkedIn</b>linkedin.com/in/mohamed-hamdoun</span>
+      <span><b>GitHub</b>github.com/mohamed2hamdoun</span>
+      <span><b>Portfolio</b>mohamed2hamdoun.github.io</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Profile</h2>
+    <p>Computer Science student specializing in Artificial Intelligence and Machine Learning, with hands-on experience in backend development, agentic and LLM-powered systems, and applied machine-learning research. I design intelligent systems and digital experiences that turn complex ideas into useful, memorable products — from auditable multi-agent architectures to a peer-reviewed ML study. A background in filmmaking and visual storytelling shapes how I make technical systems communicate clearly.</p>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="row">
+      <span class="role-title">Bachelor of Computer Science in AI &amp; Machine Learning (BCSAI)</span>
+      <span class="when">Expected 2028</span>
+    </div>
+    <p class="muted">University of Fujairah — United Arab Emirates</p>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    <div class="row">
+      <span class="role-title">Chatbot Developer Intern — <span class="org">Flora Group W.L.L</span></span>
+      <span class="when">2 months</span>
+    </div>
+    <p class="desc">Built and enhanced an AI-powered chatbot supporting logistics and HR systems, integrated with real-world internal and external APIs.</p>
+    <ul>
+      <li>Implemented LLM-based conversational logic using LangChain and LangGraph.</li>
+      <li>Integrated chatbot functionality with internal and external APIs to handle manager-level requests.</li>
+      <li>Built Python backend components and applied observability with Langfuse.</li>
+      <li>Worked across authentication, role-based requests, and client-interaction workflows.</li>
+    </ul>
+    <p class="tech"><b>Stack:</b> Python · LangChain · LangGraph · FastAPI · Langfuse · REST APIs</p>
+  </section>
+
+  <section>
+    <h2>Selected Projects</h2>
+
+    <div class="proj">
+      <div class="row"><span class="role-title">Agentic AI for Housing Arrears</span><span class="when">Hackathon — Top 3, Awarded</span></div>
+      <p class="desc">A multi-agent system turning a multi-day housing-arrears rescheduling process into an immediate, auditable AI-assisted service — intake validation, document intelligence/OCR, financial and hardship analysis, deterministic policy logic, and human escalation.</p>
+      <p class="tech"><b>Stack:</b> Python · LangGraph · FastAPI · Pydantic · OCR · Ollama &nbsp;·&nbsp; github.com/mohamed2hamdoun/sahel_agent</p>
+    </div>
+
+    <div class="proj">
+      <div class="row"><span class="role-title">Hermes — AI Design Intelligence Platform</span><span class="when">In development</span></div>
+      <p class="desc">A local-model platform that researches visual references, extracts design intelligence, generates websites, critiques its own output, and improves through iterative feedback — an end-to-end design loop running on local Qwen.</p>
+      <p class="tech"><b>Stack:</b> Python · Qwen (local) · Ollama · FastAPI · TypeScript · Embeddings</p>
+    </div>
+
+    <div class="proj">
+      <div class="row"><span class="role-title">AI Book Summarization &amp; Knowledge System</span><span class="when">Working system</span></div>
+      <p class="desc">Processes books page by page into story-driven, visually structured Obsidian knowledge vaults — page-level citations, Mermaid diagrams and mind maps, with resume recovery and failure isolation for long runs.</p>
+      <p class="tech"><b>Stack:</b> Python · Ollama · OCR · Mermaid · Obsidian</p>
+    </div>
+
+    <div class="proj">
+      <div class="row"><span class="role-title">ChatGPT-like Web Application</span><span class="when">Solo</span></div>
+      <p class="desc">A conversational web backend on FastAPI and LLM APIs — prompt handling, conversation flow, chat-history management, and scalable real-time endpoints.</p>
+      <p class="tech"><b>Stack:</b> Python · FastAPI · LLM APIs</p>
+    </div>
+
+    <div class="proj">
+      <div class="row"><span class="role-title">Applied Machine Learning — California House Prices · Rocks vs Mines · Loan Status · Fake News</span></div>
+      <p class="desc">End-to-end ML projects covering regression and classification: data analysis, preprocessing, feature engineering, model training and evaluation.</p>
+      <p class="tech"><b>Stack:</b> Python · XGBoost · Scikit-learn · Pandas · NumPy · Matplotlib · Seaborn</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Research</h2>
+    <div class="row"><span class="role-title">Probabilities Feature Enrichment for Improved Early Diabetes Prediction</span><span class="when">Published — Algorithms</span></div>
+    <p class="desc">Peer-reviewed study enriching clinical feature spaces with class-conditional probability features from Gaussian Mixture Models and Kernel Density Estimation, combined with PCA and correlation reduction, to improve early diabetes prediction.</p>
+    <p class="tech"><b>Methods:</b> Logistic Regression · GMM · KDE · PCA · Feature enrichment · Model evaluation</p>
+  </section>
+
+  <section>
+    <h2>Certifications</h2>
+    <div class="grid2">
+      <span class="cert"><span>IBM AI Engineering — Coursera</span><span class="yr">2025</span></span>
+      <span class="cert"><span>IBM Generative AI Engineering — Coursera</span><span class="yr">2025</span></span>
+      <span class="cert"><span>Front-End Development — Meta / Coursera</span><span class="yr">2025</span></span>
+      <span class="cert"><span>CS50x: Programming with Python — Harvard</span><span class="yr">2023</span></span>
+      <span class="cert"><span>Google IT Automation with Python — Coursera</span><span class="yr">2022</span></span>
+    </div>
+  </section>
+
+  <section class="skills">
+    <h2>Technical Skills</h2>
+    <div><span class="g">AI &amp; Backend</span><span class="v">Python · FastAPI · Pydantic · SQLAlchemy · PostgreSQL · REST APIs · LangChain · LangGraph · LLM APIs · Langfuse · Ollama · Qwen</span></div>
+    <div><span class="g">Machine Learning</span><span class="v">Scikit-learn · XGBoost · PyTorch · Pandas · NumPy · Matplotlib · Seaborn · Model evaluation · Experimental design</span></div>
+    <div><span class="g">Web</span><span class="v">TypeScript · React · Next.js · Tailwind CSS · Three.js · HTML · CSS · JavaScript</span></div>
+    <div><span class="g">Creative</span><span class="v">Premiere Pro · After Effects · Photoshop · Filmmaking · Motion graphics · Visual storytelling</span></div>
+  </section>
+</body>
+</html>

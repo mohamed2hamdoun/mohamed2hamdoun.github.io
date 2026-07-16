@@ -39,6 +39,28 @@ export default function MetaBar({ project }: { project: Project }) {
           {project.tech.join(' · ')}
         </dd>
       </div>
+
+      {project.repo && (
+        <div className="flex flex-col gap-3 border-b border-r border-[color:var(--color-line-paper)] p-[clamp(16px,2vw,24px)]">
+          <dt className="font-mono text-[10px] leading-none tracking-[0.18em] text-muted">
+            REPOSITORY
+          </dt>
+          <dd className="m-0">
+            <a
+              href={project.repo}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`View the ${project.shortTitle} repository (opens in new tab)`}
+              className="inline-flex min-h-11 items-center gap-2 font-mono text-[12px] leading-none tracking-[0.1em] text-paper transition-colors hover:text-signal"
+            >
+              VIEW REPOSITORY{' '}
+              <span aria-hidden className="text-signal">
+                ↗
+              </span>
+            </a>
+          </dd>
+        </div>
+      )}
     </dl>
   );
 }

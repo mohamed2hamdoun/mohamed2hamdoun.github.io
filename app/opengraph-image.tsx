@@ -2,6 +2,7 @@ import { ImageResponse } from 'next/og';
 import { site } from '@/data/site';
 
 // Site-wide social-preview image (applies to all routes that don't define their own).
+export const dynamic = 'force-static';
 export const alt = `${site.name} — AI Systems Developer, Researcher, Creative Technologist`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';

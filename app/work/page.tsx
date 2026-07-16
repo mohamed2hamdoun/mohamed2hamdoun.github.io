@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { archive } from '@/data/projects';
 import WorkIndex from '@/components/work/WorkIndex';
+import OpenSourceGrid from '@/components/work/OpenSourceGrid';
 
 /**
  * /work — the work index. Server component: renders the editorial masthead and the
@@ -59,6 +60,9 @@ export default function WorkPage() {
 
       {/* ───────── Interactive filtered index (client) ───────── */}
       <WorkIndex />
+
+      {/* ───────── Applied ML & open-source builds (secondary) ───────── */}
+      <OpenSourceGrid />
 
       {/* ───────── Creative archive — contact sheet (secondary) ───────── */}
       <section

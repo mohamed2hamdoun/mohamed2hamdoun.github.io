@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import type { ChangeEvent, CSSProperties, FormEvent } from 'react';
 import { site, socials, projectTypes } from '@/data/site';
 
 /**
- * CONTACT (ink). Client island: form state machine (idle | loading | success |
- * error), inline validation, and a real submit to POST /api/contact (Zod-validated,
- * honeypot `website`, min-fill-time, rate-limited server-side). No <footer> — global.
+ * CONTACT (ink). Client island: inline validation + a mailto composer that opens
+ * the visitor's email app with the message pre-filled. This works on any host
+ * (incl. static GitHub Pages, which has no server) and never loses a message.
+ * A honeypot field still deters trivial bots. No <footer> — global.
  */
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
@@ -68,13 +69,6 @@ export default function ContactSection() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>('idle');
   const [honeypot, setHoneypot] = useState('');
-  const [errorMsg, setErrorMsg] = useState('Something went wrong. Please try again.');
-  const startedAt = useRef<number>(0);
-
-  // stamp the render time once mounted (avoids Date.now() during SSR)
-  useEffect(() => {
-    startedAt.current = Date.now();
-  }, []);
 
   const [before, after] = site.closingHeadline.split('THINKS CLEARLY');
 
@@ -94,8 +88,13 @@ export default function ContactSection() {
     return next;
   }
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    // honeypot: a filled hidden field means a bot — pretend success, do nothing.
+    if (honeypot) {
+      setStatus('success');
+      return;
+    }
     const next = validate();
     setErrors(next);
     if (Object.keys(next).length > 0) {
@@ -104,42 +103,18 @@ export default function ContactSection() {
     }
     setStatus('loading');
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: form.name,
-          email: form.email,
-          company: form.company,
-          projectType: form.projectType,
-          message: form.message,
-          website: honeypot, // honeypot — server drops if filled
-          startedAt: startedAt.current,
-        }),
-      });
-      if (res.ok) {
-        setStatus('success');
-        return;
-      }
-      // map server-side field validation back onto the inputs
-      const data = (await res.json().catch(() => null)) as
-        | { error?: string; fieldErrors?: Record<string, string[]> }
-        | null;
-      if (res.status === 429) {
-        setErrorMsg('Too many messages just now. Please try again in a few minutes.');
-      } else if (res.status === 400 && data?.fieldErrors) {
-        setErrors({
-          name: !!data.fieldErrors.name,
-          email: !!data.fieldErrors.email,
-          message: !!data.fieldErrors.message,
-        });
-        setErrorMsg('Please check the highlighted fields.');
-      } else {
-        setErrorMsg(data?.error ?? 'Something went wrong. Please email me directly.');
-      }
-      setStatus('error');
+      const typeLabel = projectTypes.find((t) => t.value === form.projectType)?.label ?? '—';
+      const subject = `Project enquiry — ${form.name}`;
+      const body =
+        `Name: ${form.name}\n` +
+        `Email: ${form.email}\n` +
+        `Company: ${form.company || '—'}\n` +
+        `Project type: ${typeLabel}\n\n` +
+        `${form.message}\n`;
+      const mailto = `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      window.location.href = mailto;
+      setStatus('success');
     } catch {
-      setErrorMsg('Network error. Please email me directly.');
       setStatus('error');
     }
   }
@@ -151,7 +126,7 @@ export default function ContactSection() {
     setStatus('idle');
   }
 
-  const submitLabel = status === 'loading' ? 'SENDING…' : 'SEND MESSAGE';
+  const submitLabel = status === 'loading' ? 'OPENING…' : 'COMPOSE MESSAGE';
 
   return (
     <section
@@ -320,10 +295,15 @@ export default function ContactSection() {
               style={{ border: '1px solid #E5242A', padding: '22px', display: 'flex', flexDirection: 'column', gap: '10px' }}
             >
               <span className="font-display text-signal" style={{ fontSize: '26px' }}>
-                MESSAGE SENT ✓
+                EMAIL READY ✓
               </span>
               <span className="text-muted" style={{ fontSize: '14px', lineHeight: 1.5 }}>
-                Thanks — your message is on its way. I’ll reply within a couple of days.
+                Your email app should have opened with the message pre-filled — just hit send. If it
+                didn’t, email me directly at{' '}
+                <a href={`mailto:${site.email}`} className="text-paper hover:text-signal underline underline-offset-2">
+                  {site.email}
+                </a>
+                .
               </span>
               <button
                 type="button"
@@ -460,7 +440,7 @@ export default function ContactSection() {
 
               {status === 'error' && (
                 <p role="alert" aria-live="assertive" className="font-mono text-signal" style={{ margin: 0, fontSize: '11px', lineHeight: 1.6, letterSpacing: '0.06em' }}>
-                  — {errorMsg}
+                  — COULDN’T OPEN YOUR EMAIL APP. EMAIL ME DIRECTLY AT {site.email.toUpperCase()}.
                 </p>
               )}
 

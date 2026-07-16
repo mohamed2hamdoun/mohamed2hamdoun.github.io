@@ -97,6 +97,14 @@ export default function Nav() {
                 </Link>
               ),
             )}
+            <a
+              href={site.cvUrl}
+              download
+              aria-label="Download CV (PDF)"
+              className="border border-[rgba(241,233,218,0.3)] px-3.5 py-[9px] font-mono text-[11px] font-medium leading-none tracking-[0.16em] transition-colors hover:border-signal hover:text-signal"
+            >
+              CV ↓
+            </a>
             <span className="flex items-center gap-2 font-mono text-[10px] leading-none tracking-[0.14em] text-muted">
               <span aria-hidden className="h-[7px] w-[7px] rounded-full bg-signal animate-blink" />
               AVAILABLE
@@ -165,6 +173,15 @@ export default function Nav() {
               );
             })}
           </nav>
+          <a
+            href={site.cvUrl}
+            download
+            onClick={() => setOpen(false)}
+            aria-label="Download CV (PDF)"
+            className="mx-5 mb-5 flex min-h-11 flex-none items-center justify-between gap-3 border border-[rgba(241,233,218,0.3)] px-5 py-4 font-mono text-[13px] font-medium leading-none tracking-[0.16em] text-paper transition-colors hover:border-signal hover:text-signal"
+          >
+            DOWNLOAD CV <span aria-hidden>↓</span>
+          </a>
           <div className="flex flex-none flex-wrap justify-between gap-4 border-t border-[color:var(--color-line-paper)] p-5 font-mono text-[11px] leading-relaxed tracking-[0.1em] text-muted">
             <a href={`mailto:${site.email}`} className="text-paper hover:text-signal">
               {site.email.toUpperCase()}

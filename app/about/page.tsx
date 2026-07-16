@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { site } from '@/data/site';
 import { principles } from '@/data/capabilities';
 import { publications } from '@/data/research';
+import { education, certifications, experience } from '@/data/about';
 import Timeline from '@/components/about/Timeline';
 import SkillGroups from '@/components/about/SkillGroups';
 
@@ -232,15 +233,17 @@ export default function AboutPage() {
             </h3>
             <dl className="font-mono" style={{ margin: 0, display: 'grid', gridTemplateColumns: 'auto 1fr', columnGap: '18px', rowGap: '12px', fontSize: '11.5px', lineHeight: 1.5, letterSpacing: '0.04em' }}>
               <dt className="text-muted">PROGRAM</dt>
-              <dd style={{ margin: 0 }}>Artificial Intelligence — Undergraduate</dd>
+              <dd style={{ margin: 0 }}>{education.program}</dd>
+              <dt className="text-muted">DEGREE</dt>
+              <dd style={{ margin: 0 }}>{education.degree}</dd>
               <dt className="text-muted">INSTITUTION</dt>
-              <dd className="text-faint" style={{ margin: 0 }}>[ INSTITUTION — TBC ]</dd>
+              <dd style={{ margin: 0 }}>{education.institution}</dd>
               <dt className="text-muted">LOCATION</dt>
-              <dd style={{ margin: 0 }}>{site.location}</dd>
-              <dt className="text-muted">DATES</dt>
-              <dd className="text-faint" style={{ margin: 0 }}>[ DATES — TBC ]</dd>
+              <dd style={{ margin: 0 }}>{education.location}</dd>
+              <dt className="text-muted">TIMEFRAME</dt>
+              <dd style={{ margin: 0 }}>{education.timeframe}</dd>
               <dt className="text-muted">STATUS</dt>
-              <dd className="text-signal" style={{ margin: 0 }}>IN PROGRESS</dd>
+              <dd className="text-signal" style={{ margin: 0 }}>{education.status}</dd>
             </dl>
           </div>
 
@@ -276,6 +279,168 @@ export default function AboutPage() {
             </Link>
           </div>
         </div>
+      </section>
+
+      {/* ============================================================
+          PROFESSIONAL EXPERIENCE — verified internship, editorial layout.
+          ============================================================ */}
+      <section
+        aria-label="Professional experience"
+        className="bg-paper text-ink border-t border-ink"
+        style={{ padding: 'clamp(48px,8vh,96px) clamp(16px,3vw,40px)' }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '16px',
+            marginBottom: 'clamp(28px,5vh,52px)',
+          }}
+        >
+          <h2 className="font-display" style={{ margin: 0, fontSize: 'clamp(30px,4vw,60px)', lineHeight: 1 }}>
+            PROFESSIONAL EXPERIENCE
+          </h2>
+          <span
+            className="font-mono text-muted"
+            style={{ fontSize: '11px', lineHeight: 1, letterSpacing: '0.16em' }}
+          >
+            {String(experience.length).padStart(2, '0')} ROLE · VERIFIED
+          </span>
+        </div>
+
+        {experience.map((job) => (
+          <article
+            key={`${job.company}-${job.role}`}
+            data-reveal
+            style={{ borderTop: '1px solid rgba(8,8,8,0.22)', paddingTop: 'clamp(20px,3vh,32px)' }}
+          >
+            <h3
+              className="font-display"
+              style={{ margin: '0 0 10px', fontSize: 'clamp(24px,3vw,40px)', lineHeight: 1.02 }}
+            >
+              {job.role}
+            </h3>
+            <p
+              className="font-mono"
+              style={{ margin: '0 0 18px', fontSize: '11.5px', lineHeight: 1.5, letterSpacing: '0.1em' }}
+            >
+              <span className="text-signal">{job.company}</span>
+              <span className="text-muted"> · {job.timeframe}</span>
+            </p>
+            <p
+              className="text-paper-ink"
+              style={{ margin: '0 0 22px', fontSize: 'clamp(16px,1.5vw,19px)', lineHeight: 1.55, maxWidth: '62ch', textWrap: 'pretty' }}
+            >
+              {job.summary}
+            </p>
+
+            <ul style={{ listStyle: 'none', margin: '0 0 24px', padding: 0 }}>
+              {job.points.map((point) => (
+                <li
+                  key={point}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: '14px',
+                    padding: 'clamp(12px,1.8vh,18px) 0',
+                    borderTop: '1px solid rgba(8,8,8,0.14)',
+                  }}
+                >
+                  <span aria-hidden className="bg-signal" style={{ flex: '0 0 auto', marginTop: '7px', height: '7px', width: '7px' }} />
+                  <span className="text-paper-ink" style={{ fontSize: '15px', lineHeight: 1.5, maxWidth: '60ch', textWrap: 'pretty' }}>
+                    {point}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <ul style={{ listStyle: 'none', display: 'flex', flexWrap: 'wrap', gap: '8px', margin: 0, padding: 0 }} className="font-mono">
+              {job.tech.map((t) => (
+                <li
+                  key={t}
+                  className="border-ink text-paper-ink"
+                  style={{ border: '1px solid var(--color-ink)', padding: '6px 10px', fontSize: '10.5px', lineHeight: 1, letterSpacing: '0.1em' }}
+                >
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </section>
+
+      {/* ============================================================
+          CERTIFICATIONS — verified credentials, hairline numbered rows.
+          ============================================================ */}
+      <section
+        aria-label="Certifications"
+        className="bg-ink text-paper border-t border-ink"
+        style={{ padding: 'clamp(48px,8vh,96px) clamp(16px,3vw,40px)' }}
+      >
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'baseline',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '16px',
+            marginBottom: 'clamp(20px,4vh,40px)',
+          }}
+        >
+          <h2 className="font-display" style={{ margin: 0, fontSize: 'clamp(30px,4vw,60px)', lineHeight: 1 }}>
+            CERTIFICATIONS
+          </h2>
+          <span
+            className="font-mono text-muted"
+            style={{ fontSize: '11px', lineHeight: 1, letterSpacing: '0.16em' }}
+          >
+            {String(certifications.length).padStart(2, '0')} CREDENTIALS
+          </span>
+        </div>
+
+        <ol style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+          {certifications.map((cert, i) => (
+            <li
+              key={cert.title}
+              data-reveal
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'baseline',
+                gap: '8px clamp(16px,3vw,32px)',
+                padding: 'clamp(16px,2.6vh,26px) 0',
+                borderTop: '1px solid rgba(241,233,218,0.22)',
+              }}
+            >
+              <span
+                className="font-mono text-signal"
+                style={{ flex: '0 0 auto', fontSize: '11px', lineHeight: 1, letterSpacing: '0.16em' }}
+              >
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span
+                className="font-display"
+                style={{ flex: '1 1 320px', minWidth: 'min(100%,240px)', fontSize: 'clamp(18px,1.9vw,26px)', lineHeight: 1.1 }}
+              >
+                {cert.title}
+              </span>
+              <span
+                className="font-mono text-muted"
+                style={{ flex: '1 1 180px', fontSize: '11px', lineHeight: 1.5, letterSpacing: '0.08em' }}
+              >
+                {cert.issuer}
+              </span>
+              <span
+                className="font-mono text-paper"
+                style={{ flex: '0 0 auto', fontSize: '11px', lineHeight: 1, letterSpacing: '0.12em' }}
+              >
+                {cert.year}
+              </span>
+            </li>
+          ))}
+        </ol>
       </section>
 
       {/* ============================================================
@@ -419,6 +584,14 @@ export default function AboutPage() {
           >
             SEE THE WORK
           </Link>
+          <a
+            href={site.cvUrl}
+            download
+            aria-label="Download CV (PDF)"
+            className="inline-flex min-h-11 items-center gap-3 border border-ink px-[26px] py-4 font-mono text-[12px] font-medium leading-none tracking-[0.16em] text-ink transition-colors hover:bg-ink hover:text-paper"
+          >
+            DOWNLOAD CV <span aria-hidden>↓</span>
+          </a>
           <span
             className="font-mono text-muted"
             style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', fontSize: '10px', lineHeight: 1, letterSpacing: '0.14em' }}

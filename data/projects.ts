@@ -68,6 +68,8 @@ export interface Project {
   layout: ProjectLayout;
   /** Placeholder asset key -> /public/placeholders/<image>.webp (see ASSET_REQUIREMENTS.md). */
   image: string;
+  /** Public repo URL, when one exists. */
+  repo?: string | null;
   featured: boolean;
   components?: string[];
   methods?: string[];
@@ -104,6 +106,7 @@ export const projects: Project[] = [
       'Placed in the top three of the hackathon challenge category and received an award.',
     layout: 'dark-full',
     image: 'housing-agent-dashboard',
+    repo: 'https://github.com/mohamed2hamdoun/sahel_agent',
     featured: true,
     components: [
       'Intake validation',

@@ -31,7 +31,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npm run build && npm run start -- -p ${PORT}`,
+    // Static export (output: 'export') produces `out/`; serve it as plain files.
+    command: `npm run build && npx --yes serve@14 out -l ${PORT} --no-request-logging`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
