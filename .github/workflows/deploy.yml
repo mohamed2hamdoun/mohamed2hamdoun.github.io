@@ -23,9 +23,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
-      - run: npm ci
+      # `npm install` (not `npm ci`) so Linux-only native bindings for Tailwind's
+      # oxide engine resolve correctly — the lock is generated on Windows and omits
+      # some platform-specific optional deps.
+      - run: npm install --no-audit --no-fund
       - name: Build static site
         run: npm run build
       - uses: actions/configure-pages@v5
