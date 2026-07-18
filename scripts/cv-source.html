@@ -3,54 +3,59 @@
 <head>
 <meta charset="utf-8">
 <style>
-  @page { size: A4; margin: 14mm 14mm; }
+  @page { size: A4; margin: 13mm 13mm; }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
     font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
-    color: #141210; font-size: 10.2px; line-height: 1.5; background: #ffffff;
+    color: #141210; font-size: 10px; line-height: 1.48; background: #ffffff;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
   .accent { color: #E5242A; }
   .muted { color: #6a655c; }
   a { color: #141210; text-decoration: none; }
 
-  header { border-bottom: 2px solid #141210; padding-bottom: 10px; margin-bottom: 12px; }
-  .name { font-size: 30px; font-weight: 800; letter-spacing: 0.5px; line-height: 1; margin: 0; text-transform: uppercase; }
-  .roles { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; margin: 7px 0 0; font-weight: 600; }
-  .roles .sep { color: #E5242A; margin: 0 6px; }
-  .contact { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: 9.4px; letter-spacing: 0.3px; }
+  header { border-bottom: 2px solid #141210; padding-bottom: 9px; margin-bottom: 11px; }
+  .name { font-size: 29px; font-weight: 800; letter-spacing: 0.5px; line-height: 1; margin: 0; text-transform: uppercase; }
+  .roles { font-size: 9.6px; letter-spacing: 1.8px; text-transform: uppercase; margin: 6px 0 0; font-weight: 600; }
+  .roles .sep { color: #E5242A; margin: 0 5px; }
+  .contact { display: flex; flex-wrap: wrap; gap: 3px 15px; margin-top: 7px; font-size: 9.2px; letter-spacing: 0.2px; }
   .contact b { color: #E5242A; font-weight: 700; margin-right: 4px; }
 
-  section { margin-top: 13px; }
+  section { margin-top: 11px; }
   h2 {
-    font-size: 11px; letter-spacing: 2.4px; text-transform: uppercase; font-weight: 800;
-    margin: 0 0 8px; padding-bottom: 4px; border-bottom: 1px solid #141210;
+    font-size: 10.6px; letter-spacing: 2.2px; text-transform: uppercase; font-weight: 800;
+    margin: 0 0 6px; padding-bottom: 3px; border-bottom: 1px solid #141210;
     display: flex; justify-content: space-between; align-items: baseline;
   }
-  h2 .tag { font-size: 8.5px; letter-spacing: 1.5px; color: #6a655c; font-weight: 600; }
-  p { margin: 0 0 4px; }
+  h2 .tag { font-size: 8.2px; letter-spacing: 1.3px; color: #6a655c; font-weight: 600; }
+  p { margin: 0 0 3px; }
 
   .row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-  .role-title { font-weight: 700; font-size: 11px; }
+  .role-title { font-weight: 700; font-size: 10.6px; }
   .org { color: #E5242A; font-weight: 700; }
-  .when { color: #6a655c; font-size: 9px; letter-spacing: 0.5px; white-space: nowrap; }
-  ul { margin: 3px 0 0; padding-left: 14px; }
-  li { margin: 1.5px 0; }
-  .tech { margin-top: 4px; font-size: 8.8px; letter-spacing: 0.4px; color: #6a655c; }
+  .when { color: #6a655c; font-size: 8.8px; letter-spacing: 0.4px; white-space: nowrap; }
+  ul { margin: 2px 0 0; padding-left: 13px; }
+  li { margin: 1px 0; }
+  .tech { margin-top: 3px; font-size: 8.6px; letter-spacing: 0.3px; color: #6a655c; }
   .tech b { color: #141210; }
+  .repo { color: #6a655c; font-size: 8.4px; }
 
-  .proj { margin-bottom: 7px; break-inside: avoid; }
-  .proj .role-title { font-size: 10.4px; }
+  .proj { margin-bottom: 6px; break-inside: avoid; }
   .proj .desc { margin: 1px 0 0; }
+
+  .os { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 22px; }
+  .os .item { break-inside: avoid; }
+  .os .role-title { font-size: 9.8px; }
+  .os .osdesc { font-size: 9px; margin: 0; }
 
   .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 22px; }
   .cert { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px solid #e7e2d8; padding: 2px 0; }
   .cert .yr { color: #6a655c; }
 
-  .skills div { margin-bottom: 3px; }
-  .skills .g { display: inline-block; width: 118px; font-weight: 700; color: #E5242A; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; vertical-align: top; }
-  .skills .v { display: inline-block; width: calc(100% - 122px); }
+  .skills div { margin-bottom: 2.5px; }
+  .skills .g { display: inline-block; width: 116px; font-weight: 700; color: #E5242A; font-size: 8.8px; letter-spacing: 1px; text-transform: uppercase; vertical-align: top; }
+  .skills .v { display: inline-block; width: calc(100% - 120px); }
 </style>
 </head>
 <body>
@@ -69,7 +74,7 @@
 
   <section>
     <h2>Profile</h2>
-    <p>Computer Science student specializing in Artificial Intelligence and Machine Learning, with hands-on experience in backend development, agentic and LLM-powered systems, and applied machine-learning research. I design intelligent systems and digital experiences that turn complex ideas into useful, memorable products — from auditable multi-agent architectures to a peer-reviewed ML study. A background in filmmaking and visual storytelling shapes how I make technical systems communicate clearly.</p>
+    <p>Computer Science undergraduate specializing in Artificial Intelligence and Machine Learning, with hands-on experience in backend development, agentic and LLM-powered systems, and applied ML research. I design intelligent systems and digital experiences that turn complex ideas into useful, memorable products — from auditable multi-agent architectures to a peer-reviewed ML study. A background in filmmaking and visual storytelling shapes how I make technical systems communicate clearly.</p>
   </section>
 
   <section>
@@ -98,12 +103,12 @@
   </section>
 
   <section>
-    <h2>Selected Projects</h2>
+    <h2>Flagship Projects</h2>
 
     <div class="proj">
       <div class="row"><span class="role-title">Agentic AI for Housing Arrears</span><span class="when">Hackathon — Top 3, Awarded</span></div>
       <p class="desc">A multi-agent system turning a multi-day housing-arrears rescheduling process into an immediate, auditable AI-assisted service — intake validation, document intelligence/OCR, financial and hardship analysis, deterministic policy logic, and human escalation.</p>
-      <p class="tech"><b>Stack:</b> Python · LangGraph · FastAPI · Pydantic · OCR · Ollama &nbsp;·&nbsp; github.com/mohamed2hamdoun/sahel_agent</p>
+      <p class="tech"><b>Stack:</b> Python · LangGraph · FastAPI · Pydantic · OCR · Ollama &nbsp;·&nbsp; <span class="repo">github.com/mohamed2hamdoun/sahel_agent</span></p>
     </div>
 
     <div class="proj">
@@ -123,12 +128,6 @@
       <p class="desc">A conversational web backend on FastAPI and LLM APIs — prompt handling, conversation flow, chat-history management, and scalable real-time endpoints.</p>
       <p class="tech"><b>Stack:</b> Python · FastAPI · LLM APIs</p>
     </div>
-
-    <div class="proj">
-      <div class="row"><span class="role-title">Applied Machine Learning — California House Prices · Rocks vs Mines · Loan Status · Fake News</span></div>
-      <p class="desc">End-to-end ML projects covering regression and classification: data analysis, preprocessing, feature engineering, model training and evaluation.</p>
-      <p class="tech"><b>Stack:</b> Python · XGBoost · Scikit-learn · Pandas · NumPy · Matplotlib · Seaborn</p>
-    </div>
   </section>
 
   <section>
@@ -136,6 +135,32 @@
     <div class="row"><span class="role-title">Probabilities Feature Enrichment for Improved Early Diabetes Prediction</span><span class="when">Published — Algorithms</span></div>
     <p class="desc">Peer-reviewed study enriching clinical feature spaces with class-conditional probability features from Gaussian Mixture Models and Kernel Density Estimation, combined with PCA and correlation reduction, to improve early diabetes prediction.</p>
     <p class="tech"><b>Methods:</b> Logistic Regression · GMM · KDE · PCA · Feature enrichment · Model evaluation</p>
+  </section>
+
+  <section>
+    <h2>Applied ML &amp; Open Source <span class="tag">github.com/mohamed2hamdoun</span></h2>
+    <div class="os">
+      <div class="item">
+        <div class="role-title">California House Price Prediction</div>
+        <p class="osdesc muted">End-to-end regression with an XGBoost regressor — analysis to evaluation. <span class="repo">/houses-prices-prediction</span></p>
+      </div>
+      <div class="item">
+        <div class="role-title">Rocks vs Mines Prediction</div>
+        <p class="osdesc muted">Full classification pipeline — preprocessing, EDA, feature engineering. <span class="repo">/ml-rocks-mines-prediction</span></p>
+      </div>
+      <div class="item">
+        <div class="role-title">Loan Status Prediction</div>
+        <p class="osdesc muted">Supervised classification of loan approval with model comparison. <span class="repo">/Loan-Status-Prediction…</span></p>
+      </div>
+      <div class="item">
+        <div class="role-title">Fake News Prediction</div>
+        <p class="osdesc muted">NLP text-classification with preprocessing + feature extraction. <span class="repo">/fake-news-prediction</span></p>
+      </div>
+      <div class="item">
+        <div class="role-title">AI-Powered Applications (IBM)</div>
+        <p class="osdesc muted">Applied AI projects from IBM's "Building AI-Powered Applications" course. <span class="repo">/Building-AI-powered-applications-IBM-course</span></p>
+      </div>
+    </div>
   </section>
 
   <section>
